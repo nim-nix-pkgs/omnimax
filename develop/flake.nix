@@ -24,7 +24,7 @@
   inputs."omni".owner = "nim-nix-pkgs";
   inputs."omni".ref   = "master";
   inputs."omni".repo  = "omni";
-  inputs."omni".dir   = "";
+  inputs."omni".dir   = "0_4_0";
   inputs."omni".type  = "github";
   inputs."omni".inputs.nixpkgs.follows = "nixpkgs";
   inputs."omni".inputs.flakeNimbleLib.follows = "flakeNimbleLib";
@@ -33,10 +33,13 @@
   let 
     lib  = flakeNimbleLib.lib;
     args = ["self" "nixpkgs" "flakeNimbleLib" "src-omnimax-develop"];
-  in lib.mkRefOutput {
+    over = if builtins.pathExists ./override.nix 
+           then { override = import ./override.nix; }
+           else { };
+  in lib.mkRefOutput (over // {
     inherit self nixpkgs ;
     src  = deps."src-omnimax-develop";
     deps = builtins.removeAttrs deps args;
     meta = builtins.fromJSON (builtins.readFile ./meta.json);
-  };
+  } );
 }
