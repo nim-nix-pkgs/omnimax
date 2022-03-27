@@ -11,6 +11,7 @@
   inputs.src-omnimax-develop.ref   = "refs/heads/develop";
   inputs.src-omnimax-develop.owner = "vitreo12";
   inputs.src-omnimax-develop.repo  = "omnimax";
+  inputs.src-omnimax-develop.dir   = "";
   inputs.src-omnimax-develop.type  = "github";
   
   inputs."cligen".owner = "nim-nix-pkgs";
